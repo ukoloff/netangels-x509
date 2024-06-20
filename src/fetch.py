@@ -16,11 +16,20 @@ token = s.post('https://panel.netangels.ru/api/gateway/token/', data={'api_key':
 s.headers['authorization'] = 'Bearer ' + token
 
 x509s = s.get(API + 'certificates/').json()
-# print(x509s)
+
+def wildcard(x509):
+    d = x509['domains']
+    d.sort(key=len)
+    if len(d)!=2 or d[1]!='*.'+d[0]:
+        return
+    x509['DNS'] = d[0]
+    return True
+
+x509s = filter(wildcard, x509s['entities'])
 
 x509s = s.get(API + 'certificates/find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
 
 for x in x509s['entities']:
     r = s.get(API + f"certificates/{x['id']}/download/", json={'name': 'A', 'type': 'zip'})
     z = ZipFile(io.BytesIO(r.content))
-    print(z)
+    print(*z.NameToInfo.keys())
