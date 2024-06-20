@@ -18,6 +18,8 @@ s.headers['authorization'] = 'Bearer ' + token
 
 # x509s = s.get(API + 'find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
 
+folder = path.join(path.dirname(__file__), 'crt')
+
 x509s = s.get(API)
 
 def wildcard(x509):
@@ -33,4 +35,5 @@ for dns, group in groupby(x509s, itemgetter('DNS')):
     x509 = sorted(group, key=itemgetter('not_after'))[-1]
     r = s.get(API + f"{x509['id']}/download/", json={'name': dns, 'type': 'zip'})
     z = ZipFile(io.BytesIO(r.content))
-    print(*z.NameToInfo.keys())
+    for f in z.infolist():
+        z.extract(f, path=folder)
