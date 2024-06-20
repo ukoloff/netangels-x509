@@ -33,7 +33,7 @@ def wildcard(x509):
 x509s = filter(wildcard, x509s.json()['entities'])
 for dns, group in groupby(x509s, itemgetter('DNS')):
     x509 = sorted(group, key=itemgetter('not_after'))[-1]
-    r = s.get(API + f"{x509['id']}/download/", json={'name': dns, 'type': 'zip'})
+    r = s.get(API + f"{x509['id']}/download/", json={'name': dns.replace('.', '-'), 'type': 'zip'})
     z = ZipFile(io.BytesIO(r.content))
     for f in z.infolist():
         z.extract(f, path=folder)
