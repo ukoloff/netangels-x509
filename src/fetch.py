@@ -1,9 +1,8 @@
 #
 # Fetch X509 certificates from NetAngels.ru
 #
-import io
+import io, requests
 from os import path
-import requests
 from zipfile import ZipFile
 from itertools import groupby
 from operator import itemgetter
