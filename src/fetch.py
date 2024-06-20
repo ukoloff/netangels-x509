@@ -1,8 +1,10 @@
 #
 # Fetch X509 certificates from NetAngels.ru
 #
+import io
 from os import path
 import requests
+from zipfile import ZipFile
 
 API = 'https://api-ms.netangels.ru/api/v1/'
 
@@ -20,4 +22,5 @@ x509s = s.get(API + 'certificates/find/', json={'is_issued_only': True, 'domains
 
 for x in x509s['entities']:
     r = s.get(API + f"certificates/{x['id']}/download/", json={'name': 'A', 'type': 'zip'})
-    print(r)
+    z = ZipFile(io.BytesIO(r.content))
+    print(z)
