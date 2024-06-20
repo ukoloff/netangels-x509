@@ -5,6 +5,8 @@ import io
 from os import path
 import requests
 from zipfile import ZipFile
+from itertools import groupby
+from operator import itemgetter
 
 API = 'https://api-ms.netangels.ru/api/v1/'
 
@@ -26,6 +28,8 @@ def wildcard(x509):
     return True
 
 x509s = filter(wildcard, x509s['entities'])
+x509s = groupby(x509s, itemgetter('DNS'))
+x509s = dict((dns, sorted(group, key=itemgetter('not_after'))[-1]) for dns, group in x509s)
 
 x509s = s.get(API + 'certificates/find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
 
