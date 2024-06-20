@@ -8,7 +8,7 @@ from zipfile import ZipFile
 from itertools import groupby
 from operator import itemgetter
 
-API = 'https://api-ms.netangels.ru/api/v1/'
+API = 'https://api-ms.netangels.ru/api/v1/certificates/'
 
 api_key = open(path.join(path.dirname(__file__), '.token')).readline().strip()
 
@@ -17,7 +17,7 @@ s = requests.Session()
 token = s.post('https://panel.netangels.ru/api/gateway/token/', data={'api_key': api_key}).json()['token']
 s.headers['authorization'] = 'Bearer ' + token
 
-x509s = s.get(API + 'certificates/').json()
+x509s = s.get(API).json()
 
 def wildcard(x509):
     d = x509['domains']
@@ -31,9 +31,9 @@ x509s = filter(wildcard, x509s['entities'])
 x509s = groupby(x509s, itemgetter('DNS'))
 x509s = dict((dns, sorted(group, key=itemgetter('not_after'))[-1]) for dns, group in x509s)
 
-x509s = s.get(API + 'certificates/find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
+x509s = s.get(API + 'find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
 
 for x in x509s['entities']:
-    r = s.get(API + f"certificates/{x['id']}/download/", json={'name': 'A', 'type': 'zip'})
+    r = s.get(API + f"{x['id']}/download/", json={'name': 'A', 'type': 'zip'})
     z = ZipFile(io.BytesIO(r.content))
     print(*z.NameToInfo.keys())
