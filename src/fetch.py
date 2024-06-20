@@ -17,7 +17,9 @@ s = requests.Session()
 token = s.post('https://panel.netangels.ru/api/gateway/token/', data={'api_key': api_key}).json()['token']
 s.headers['authorization'] = 'Bearer ' + token
 
-x509s = s.get(API).json()
+# x509s = s.get(API + 'find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
+
+x509s = s.get(API)
 
 def wildcard(x509):
     d = x509['domains']
@@ -27,13 +29,9 @@ def wildcard(x509):
     x509['DNS'] = d[0]
     return True
 
-x509s = filter(wildcard, x509s['entities'])
-x509s = groupby(x509s, itemgetter('DNS'))
-x509s = dict((dns, sorted(group, key=itemgetter('not_after'))[-1]) for dns, group in x509s)
-
-x509s = s.get(API + 'find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
-
-for x in x509s['entities']:
-    r = s.get(API + f"{x['id']}/download/", json={'name': 'A', 'type': 'zip'})
+x509s = filter(wildcard, x509s.json()['entities'])
+for dns, group in groupby(x509s, itemgetter('DNS')):
+    x509 = sorted(group, key=itemgetter('not_after'))[-1]
+    r = s.get(API + f"{x509['id']}/download/", json={'name': dns, 'type': 'zip'})
     z = ZipFile(io.BytesIO(r.content))
     print(*z.NameToInfo.keys())
