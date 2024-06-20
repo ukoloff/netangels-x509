@@ -14,4 +14,7 @@ token = s.post('https://panel.netangels.ru/api/gateway/token/', data={'api_key':
 s.headers['authorization'] = 'Bearer ' + token
 
 x509s = s.get(API + 'certificates/').json()
+# print(x509s)
+
+x509s = s.get(API + 'certificates/find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
 print(x509s)
