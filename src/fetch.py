@@ -19,7 +19,9 @@ token = s.post(
 )
 s.headers["authorization"] = "Bearer " + token.json()["token"]
 
-# x509s = s.get(API + 'find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
+# x509s = s.get(
+#     API + "find/", json={"is_issued_only": True, "domains": ["*.ekb.ru"]}
+# ).json()
 
 folder = path.join(path.dirname(__file__), "crt")
 
