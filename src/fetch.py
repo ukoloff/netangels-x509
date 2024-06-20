@@ -17,4 +17,7 @@ x509s = s.get(API + 'certificates/').json()
 # print(x509s)
 
 x509s = s.get(API + 'certificates/find/', json={'is_issued_only': True, 'domains': ['*.ekb.ru']}).json()
-print(x509s)
+
+for x in x509s['entities']:
+    r = s.get(API + f"certificates/{x['id']}/download/", json={'name': 'A', 'type': 'zip'})
+    print(r)
