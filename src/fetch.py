@@ -3,9 +3,10 @@
 # Fetch X509 certificates from NetAngels.ru
 #
 import io
+import sys
 import hashlib
 import requests
-from os import path
+from os import path, scandir
 from subprocess import run
 from zipfile import ZipFile
 from itertools import groupby
@@ -94,3 +95,10 @@ for dns, group in groupby(x509s, itemgetter("DNS")):
         cwd=folder,
         check=True,
     )
+
+if changedAny != 0 and sys.platform.startswith("linux"):
+    hosts = path.realpath(path.join(self, "../hosts.d"))
+    for x in scandir(hosts):
+        if not x.is_file():
+            continue
+        run(["bash", x.name], cwd=hosts, check=True)
