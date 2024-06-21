@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #
 # Fetch X509 certificates from NetAngels.ru
 #
