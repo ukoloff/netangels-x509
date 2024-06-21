@@ -89,6 +89,7 @@ for dns, group in groupby(x509s, itemgetter("DNS")):
             fname + "@netangels",
             "-passout",
             "pass:" + fname + "@netangels",
+            "-legacy",
             "-out",
             fname + ".pfx",
         ],
