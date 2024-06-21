@@ -4,6 +4,7 @@
 import io
 import requests
 from os import path
+from subprocess import run
 from zipfile import ZipFile
 from itertools import groupby
 from operator import itemgetter
@@ -39,11 +40,33 @@ def wildcard(x509):
 
 x509s = filter(wildcard, x509s.json()["entities"])
 for dns, group in groupby(x509s, itemgetter("DNS")):
+    fname = dns.replace(".", "-")
     x509 = sorted(group, key=itemgetter("not_after"))[-1]
     r = s.get(
         API + f"{x509['id']}/download/",
-        json={"name": dns.replace(".", "-"), "type": "zip"},
+        json={"name": fname, "type": "zip"},
     )
     z = ZipFile(io.BytesIO(r.content))
     for f in z.infolist():
         z.extract(f, path=folder)
+
+    # Generate .pfx
+    run(
+        [
+            "openssl",
+            "pkcs12",
+            "-export",
+            "-in",
+            fname + ".full.crt",
+            "-inkey",
+            fname + ".key",
+            "-name",
+            fname + "@netangels",
+            "-passout",
+            "pass:" + fname + "@netangels",
+            "-out",
+            fname + ".pfx",
+        ],
+        cwd=folder,
+        check=True,
+    )
