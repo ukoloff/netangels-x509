@@ -87,6 +87,7 @@ for dns, group in groupby(x509s, itemgetter("DNS")):
             fname + ".key",
             "-name",
             dns + "@netangels / " + x509['not_after'].split()[0],
+            # https://stackoverflow.com/a/62863490/6127481
             "-keypbe",
             "NONE",
             "-certpbe",
