@@ -2,6 +2,7 @@
 # Fetch X509 certificates from NetAngels.ru
 #
 import io
+import hashlib
 import requests
 from os import path
 from subprocess import run
@@ -38,8 +39,19 @@ def wildcard(x509):
     return True
 
 
+changedAny = 0
+
+
+def hash(fname):
+    if not path.isfile(fname):
+        return
+    with open(fname, "rb") as f:
+        return hashlib.sha512(f.read()).hexdigest()
+
+
 x509s = filter(wildcard, x509s.json()["entities"])
 for dns, group in groupby(x509s, itemgetter("DNS")):
+    changed = 0
     fname = dns.replace(".", "-")
     x509 = sorted(group, key=itemgetter("not_after"))[-1]
     r = s.get(
@@ -48,7 +60,16 @@ for dns, group in groupby(x509s, itemgetter("DNS")):
     )
     z = ZipFile(io.BytesIO(r.content))
     for f in z.infolist():
+        fn = path.join(folder, f.filename)
+        h1 = hash(fn)
         z.extract(f, path=folder)
+        h2 = hash(fn)
+        if h1 != h2:
+            changed += 1
+            changedAny += 1
+
+    if changed == 0:
+        continue
 
     # Generate .pfx
     run(
