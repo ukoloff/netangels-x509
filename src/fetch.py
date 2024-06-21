@@ -13,7 +13,9 @@ from operator import itemgetter
 
 API = "https://api-ms.netangels.ru/api/v1/certificates/"
 
-api_key = open(path.join(path.dirname(__file__), ".token")).readline().strip()
+self = path.dirname(path.realpath(__file__))
+
+api_key = open(path.join(self, ".token")).readline().strip()
 
 s = requests.Session()
 
@@ -26,7 +28,7 @@ s.headers["authorization"] = "Bearer " + token.json()["token"]
 #     API + "find/", json={"is_issued_only": True, "domains": ["*.ekb.ru"]}
 # ).json()
 
-folder = path.join(path.dirname(__file__), "crt")
+folder = path.join(self, "crt")
 
 x509s = s.get(API)
 
