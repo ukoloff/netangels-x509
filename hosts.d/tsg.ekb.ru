@@ -8,5 +8,7 @@ $crt = Import-PfxCertificate -FilePath "C:\inetpub\x509\uxm\ekb-ru.pfx" -CertSto
 Get-WebBinding | Where-Object { $_.certificateHash } | ForEach-Object { $_.AddSslCertificate($crt.Thumbprint, 'My') }
 
 # Update TSG / RDS
-Set-RDCertificate -Role RDGateway -Thumbprint $crt.Thumbprint -Force
+$cmd = "Set-RDCertificate -Role RDGateway -Thumbprint $($crt.Thumbprint) -Force"
+psexec -accepteula -nobanner -s powershell -c $cmd
+# restart service: TSGateway
 EOF
