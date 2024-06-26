@@ -13,4 +13,5 @@ $ps = while ($true) {
 
 $ps |
 Select-Object -Property ProcessId, CommandLine |
-ConvertTo-Json
+ConvertTo-Json |
+Set-Content "C:\Temp\ps-$PID.json"
