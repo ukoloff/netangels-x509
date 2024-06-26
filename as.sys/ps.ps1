@@ -11,4 +11,6 @@ $ps = while ($true) {
     $self
 }
 
-$ps | Select-Object -Property ProcessId,CommandLine | ConvertTo-Json
+$ps |
+Select-Object -Property ProcessId, CommandLine |
+ConvertTo-Json
