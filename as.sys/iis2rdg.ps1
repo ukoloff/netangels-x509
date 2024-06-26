@@ -12,13 +12,13 @@ if ($install) {
     $Action = New-ScheduledTaskAction -Execute "powershell" -Argument ".\$me" -WorkingDirectory $dir
     $Trigger = New-ScheduledTaskTrigger -At 04:00 -Daily
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger
-    Register-ScheduledTask -TaskName "$me" -TaskPath uxm -InputObject $Task -User "System" -Force
+    Register-ScheduledTask -TaskName $me -TaskPath uxm -InputObject $Task -User "System" -Force
     exit
 }
 
 if ($remove) {
     $me = Split-Path $PSCommandPath -Leaf
-    Unregister-ScheduledTask -TaskName "$me" -TaskPath '\uxm\' -Confirm:$false
+    Unregister-ScheduledTask -TaskName $me -TaskPath '\uxm\' -Confirm:$false
     exit
 }
 
