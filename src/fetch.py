@@ -12,6 +12,7 @@ from zipfile import ZipFile
 from itertools import groupby
 from operator import itemgetter
 
+AUTH = "https://panel.netangels.ru/api/gateway/token/"
 API = "https://api-ms.netangels.ru/api/v1/certificates/"
 
 self = path.dirname(path.realpath(__file__))
@@ -20,8 +21,15 @@ api_key = open(path.join(self, ".token")).readline().strip()
 
 s = requests.Session()
 
+try:
+    # Warm up
+    s.post(AUTH)
+    s.get(API)
+except:  # noqa: E722
+    pass
+
 token = s.post(
-    "https://panel.netangels.ru/api/gateway/token/", data={"api_key": api_key}
+    AUTH, data={"api_key": api_key}
 )
 s.headers["authorization"] = "Bearer " + token.json()["token"]
 
