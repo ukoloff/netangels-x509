@@ -21,6 +21,6 @@ $Trigger = Get-CimClass -ClassName 'MSFT_TaskRegistrationTrigger' -Namespace 'Ro
 $Settings = New-ScheduledTaskSettingsSet -DeleteExpiredTaskAfter 00:01:00
 $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
 $Task.Triggers[0].EndBoundary = (Get-Date).AddMinutes(1).ToString('s')
-Register-ScheduledTask -TaskName "RDGateway.x509" -TaskPath uxm -InputObject $Task -User "System" -Force
+Register-ScheduledTask -TaskName "RDGateway.x509" -TaskPath uxm -InputObject $Task -User "System" -Force | Out-Null
 
 EOF
