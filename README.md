@@ -1,6 +1,9 @@
 # netangels-x509
 Загрузка сертификатов x509 с netangels.ru при помощи API.
 
+Не забудьте записать в файл `src/.token` ключ API https://panel.netangels.ru/account/api/
+
+
 ## Установка сервера SSH на Windows
 
 - [Загрузка][ssh-win32] MSI и установка
