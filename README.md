@@ -38,3 +38,14 @@
 
 
 [ssh-win32]: https://github.com/PowerShell/Win32-OpenSSH/releases/latest
+
+## Обновление сертификата Remote Desktop Gateway
+
+Скрипт [tsg.ekb.ru](/hosts.d/tsg.ekb.ru)
+делает это сам,
+но может оказаться удобнее обновлять сертификат RDG
+по сертификату IIS.
+Тогда запускайте [iis2rdg.ps1](/as.sys/iis2rdg.ps1)
+по расписанию
+(раз в сутки?)
+из под службы System.
