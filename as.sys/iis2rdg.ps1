@@ -10,7 +10,7 @@ if ($install) {
     $me = Split-Path $PSCommandPath -Leaf
     $dir = Split-Path $PSCommandPath -Parent
     $Action = New-ScheduledTaskAction -Execute "powershell" -Argument ".\$me" -WorkingDirectory $dir
-    $Trigger = New-ScheduledTaskTrigger -At 04:00 -Daily
+    $Trigger = New-ScheduledTaskTrigger -At 04:00 -Daily -RandomDelay 01:00:00
     $Task = New-ScheduledTask -Action $Action -Trigger $Trigger
     Register-ScheduledTask -TaskName $me -TaskPath uxm -InputObject $Task -User "System" -Force
     exit
