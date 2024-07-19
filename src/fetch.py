@@ -28,16 +28,16 @@ try:
 except:  # noqa: E722
     pass
 
-token = s.post(
-    AUTH, data={"api_key": api_key}
-)
+token = s.post(AUTH, data={"api_key": api_key})
 s.headers["authorization"] = "Bearer " + token.json()["token"]
 
 # x509s = s.get(
 #     API + "find/", json={"is_issued_only": True, "domains": ["*.ekb.ru"]}
 # ).json()
 
-folder = path.join(self, "crt")
+folder = path.join(self, "uxm")
+if not path.exists(folder):
+    folder = path.join(self, "crt")
 
 x509s = s.get(API)
 
@@ -94,10 +94,10 @@ for dns, group in groupby(x509s, itemgetter("DNS")):
             "-inkey",
             fname + ".key",
             "-name",
-            dns + "@netangels / " + x509['not_after'].split()[0],
+            dns + "@netangels / " + x509["not_after"].split()[0],
             "-passout",
             "pass:",
-            "-legacy",      # For Windows Server 2016
+            "-legacy",  # For Windows Server 2016
             "-out",
             fname + ".pfx",
         ],
