@@ -4,6 +4,7 @@
 #
 import io
 import sys
+import json
 import hashlib
 import requests
 from os import path, scandir
@@ -61,7 +62,11 @@ def hash(fname):
         return hashlib.sha512(f.read()).hexdigest()
 
 
-x509s = filter(wildcard, x509s.json()["entities"])
+x509s = x509s.json()["entities"]
+with open(path.join(folder, "x509s.json"), "w") as fdb:
+    json.dump(sorted(x509s, key=itemgetter("id")), fdb, indent=2, ensure_ascii=False)
+
+x509s = filter(wildcard, x509s)
 for dns, group in groupby(x509s, itemgetter("DNS")):
     changed = 0
     fname = dns.replace(".", "-")
