@@ -63,7 +63,7 @@ def hash(fname):
 
 
 x509s = x509s.json()["entities"]
-with open(path.join(folder, "x509s.json"), "w") as fdb:
+with open(path.join(folder, "x509s.json"), "w", encoding='utf8') as fdb:
     json.dump(sorted(x509s, key=itemgetter("id")), fdb, indent=2, ensure_ascii=False)
 
 x509s = filter(wildcard, x509s)
