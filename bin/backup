@@ -6,3 +6,6 @@ cd `git rev-parse --show-toplevel`
 rm -rf x509
 mkdir x509
 cp src/*.json src/*.crt x509
+
+git add --all .
+git commit -m "`date --rfc-3339=seconds`"
