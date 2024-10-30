@@ -107,7 +107,7 @@ for dns, group in groupby(x509s, itemgetter("DNS")):
             fname + ".pfx",
         ],
         cwd=folder,
-        check=True,
+        # check=True,
     )
 
 if changedAny != 0 and sys.platform.startswith("linux"):
