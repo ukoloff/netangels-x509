@@ -15,6 +15,7 @@ $cmd = "$cmd ; $restart"
 # psexec -accepteula -nobanner -s powershell -c $cmd
 # restart service: TSGateway
 
+exit
 # Run as System service via Scheduled Task
 $Action = New-ScheduledTaskAction -Execute "powershell" -Argument "-c '$cmd'"
 $Trigger = Get-CimClass -ClassName 'MSFT_TaskRegistrationTrigger' -Namespace 'Root/Microsoft/Windows/TaskScheduler'
