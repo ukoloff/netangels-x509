@@ -146,5 +146,22 @@
     "publisher": "LetsEncrypt",
     "state": "Issued",
     "updated": "2024-10-25 06:07:06"
+  },
+  {
+    "created": "2024-11-25 19:48:37",
+    "domains": [
+      "vm-cc3deb63.na4u.ru",
+      "www.vm-cc3deb63.na4u.ru"
+    ],
+    "extension_period": 1,
+    "id": 210516,
+    "is_in_transfer": false,
+    "is_renewal": true,
+    "name": "vm-cc3deb63.na4u.ru",
+    "not_after": "2025-02-23 18:53:23",
+    "not_before": "2024-11-25 18:53:24",
+    "publisher": "LetsEncrypt",
+    "state": "Issued",
+    "updated": "2024-11-25 19:51:57"
   }
 ]
