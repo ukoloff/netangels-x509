@@ -35,11 +35,11 @@
     "is_in_transfer": false,
     "is_renewal": true,
     "name": "uralhimmash.ru+rf+na4u",
-    "not_after": "2024-12-19 11:08:58",
-    "not_before": "2024-09-20 11:08:59",
+    "not_after": "2025-03-10 11:11:23",
+    "not_before": "2024-12-10 11:11:24",
     "publisher": "LetsEncrypt",
     "state": "Issued",
-    "updated": "2024-09-20 12:09:04"
+    "updated": "2024-12-10 12:12:30"
   },
   {
     "created": "2020-06-08 12:10:42",
