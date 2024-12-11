@@ -14,11 +14,11 @@
     "is_in_transfer": false,
     "is_renewal": true,
     "name": "uralhimmash.com+en+na4u",
-    "not_after": "2024-12-20 11:09:40",
-    "not_before": "2024-09-21 11:09:41",
+    "not_after": "2025-03-11 11:11:33",
+    "not_before": "2024-12-11 11:11:34",
     "publisher": "LetsEncrypt",
     "state": "Issued",
-    "updated": "2024-09-21 12:10:04"
+    "updated": "2024-12-11 12:12:00"
   },
   {
     "created": "2020-03-21 11:54:59",
