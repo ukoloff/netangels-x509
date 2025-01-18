@@ -107,11 +107,11 @@
     "is_in_transfer": false,
     "is_renewal": true,
     "name": "*.ekb.ru",
-    "not_after": "2025-01-27 11:18:23",
-    "not_before": "2024-10-29 11:18:24",
+    "not_after": "2025-04-18 11:18:01",
+    "not_before": "2025-01-18 11:18:02",
     "publisher": "LetsEncrypt",
     "state": "Issued",
-    "updated": "2024-10-29 12:17:35"
+    "updated": "2025-01-18 12:17:05"
   },
   {
     "created": "2024-06-17 03:44:13",
