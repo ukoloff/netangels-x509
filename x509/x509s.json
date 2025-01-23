@@ -144,8 +144,8 @@
     "not_after": "2025-01-23 05:00:40",
     "not_before": "2024-10-25 05:00:41",
     "publisher": "LetsEncrypt",
-    "state": "Issued",
-    "updated": "2024-10-25 06:07:06"
+    "state": "Expired",
+    "updated": "2025-01-23 04:20:05"
   },
   {
     "created": "2024-11-25 19:48:37",
