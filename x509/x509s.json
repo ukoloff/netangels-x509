@@ -141,10 +141,10 @@
     "is_in_transfer": false,
     "is_renewal": true,
     "name": "vm-cc3deb63.na4u.ru",
-    "not_after": "2025-02-23 18:53:23",
-    "not_before": "2024-11-25 18:53:24",
+    "not_after": "2025-05-15 11:12:15",
+    "not_before": "2025-02-14 11:12:16",
     "publisher": "LetsEncrypt",
     "state": "Issued",
-    "updated": "2024-11-25 20:27:35"
+    "updated": "2025-02-14 12:11:20"
   }
 ]
